@@ -1,0 +1,28 @@
+﻿@page
+@model EmailModel
+@{
+    ViewData["Title"] = "Change email";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Email</label>
+            <p>@Model.Email</p>
+            @if (!Model.IsEmailConfirmed)
+            {
+                <form method="post" asp-page-handler="SendVerificationEmail">
+                    <button type="submit" class="btn btn-primary">Send verification email</button>
+                </form>
+            }
+            else
+            {
+                <p>Email is confirmed.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<p class="text-success">@Model.StatusMessage</p>

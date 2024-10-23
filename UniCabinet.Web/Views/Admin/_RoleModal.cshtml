@@ -1,0 +1,36 @@
+﻿@model UniCabinet.Web.ViewModel.User.UserRolesViewModel
+
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+                <h5 class="modal-title">Изменить роли для @Model.FullName</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <!-- Тело модального окна -->
+            <div class="modal-body">
+                <form asp-action="UpdateUserRoles">
+                    <div class="mb-3">
+                        @foreach (var role in Model.AvailableRoles)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="SelectedRoles" value="@role.Value"
+                                @(Model.SelectedRoles.Contains(role.Value) ? "checked" : "") />
+                                <label class="form-check-label" for="role_@role.Value">
+                                    @role.Text
+                                </label>
+                            </div>
+                        }
+                        <input type="hidden" name="UserId" value="@Model.UserId" />
+                    </div>
+                    <!-- Подвал модального окна -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

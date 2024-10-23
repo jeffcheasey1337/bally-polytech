@@ -1,0 +1,52 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Ваш профиль";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (TempData["ConfirmationResult"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["ConfirmationResult"]
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form method="post">
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.FirstName" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Введите ваше имя" />
+                    <label asp-for="Input.FirstName" class="form-label">Имя</label>
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.LastName" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Введите вашу фамилию" />
+                    <label asp-for="Input.LastName" class="form-label">Фамилия</label>
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Patronymic" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Введите ваше отчество" />
+                    <label asp-for="Input.Patronymic" class="form-label">Отчество</label>
+                    <span asp-validation-for="Input.Patronymic" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.DateBirthday" class="form-control" autocomplete="current-password" type="date" aria-required="true" placeholder="Введите вашу дату рождения" />
+                    <label asp-for="Input.DateBirthday" class="form-label">Дата рождения</label>
+                    <span asp-validation-for="Input.DateBirthday" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+<p class="text-success">@Model.StatusMessage</p>

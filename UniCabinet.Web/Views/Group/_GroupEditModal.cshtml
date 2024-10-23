@@ -1,0 +1,53 @@
+﻿@model UniCabinet.Web.ViewModel.GroupCreateEditViewModel
+
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+                <h5 class="modal-title">Редактировать группу</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Тело модального окна -->
+            <div class="modal-body">
+                <form id="editGroupForm" asp-action="EditGroup">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group">
+                        <label for="groupName">Название группы</label>
+                        <input type="text" class="form-control" id="groupName" asp-for="Name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="groupType">Тип группы</label>
+                        <select asp-for="TypeGroup" class="form-control" required>
+                            <option value="">Выберите тип</option>
+                            <option value="1">Очно</option>
+                            <option value="2">Заочно</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="courseNumber">Курс</label>
+                        <select asp-for="CourseId" class="form-control" required>
+                            <option value="">Выберите курс</option>
+                            <option value="1">1 Курс</option>
+                            <option value="2">2 Курс</option>
+                            <option value="3">3 Курс</option>
+                            <option value="4">4 Курс</option>
+                            <option value="5">5 Курс</option>
+                        </select>
+                    </div>
+
+                    <p>Текущий семестр: @Model.CurrentSemester</p>
+
+                    <!-- Подвал модального окна -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

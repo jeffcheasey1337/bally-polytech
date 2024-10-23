@@ -1,0 +1,35 @@
+﻿@model UniCabinet.Web.ViewModel.User.StudentGroupViewModel
+
+<link rel="stylesheet" href="~/css/search.css" />
+
+<h3>Список пользователй</h3>
+
+<form method="get" asp-action="VerifiedUsers" id="roleFilterForm">
+    <div class="form-group">
+        <label for="roleFilter">Выберите роль для фильтрации:</label>
+        <select class="form-control" id="roleFilter" name="role" data-selected-role="@ViewBag.SelectedRole">
+            @foreach (var role in (IEnumerable<SelectListItem>)ViewBag.Roles)
+            {
+                <option value="@role.Value" selected>@role.Text</option>
+            }
+        </select>
+    </div>
+
+    <input type="hidden" name="pageNumber" value="@Model.Pagination.CurrentPage" />
+    <input type="hidden" name="pageSize" value="@Model.Pagination.RouteValues.PageSize" />
+    <input type="hidden" name="query" value="@Model.Pagination.RouteValues.Query" />
+</form>
+
+<div id="searchContainer" class="d-flex align-items-center">
+    <input type="text" id="searchBox" class="form-control" placeholder="Поиск по имени или email..." onkeyup="searchUsers()" autocomplete="off" value="@Model.Pagination.RouteValues.Query" />
+    <button type="button" id="resetButton" class="btn btn-secondary ml-2" onclick="resetSearch()">Сбросить</button>
+    <ul id="suggestionsList" class="list-group"></ul>
+</div>
+
+<!-- Контейнер для таблицы пользователей -->
+<div id="userTableContainer">
+    @await Html.PartialAsync("_UserTablePartial", Model)
+</div>
+
+<script src="~/js/search.js" defer></script>
+<script src="~/js/roleFilter.js" defer></script>

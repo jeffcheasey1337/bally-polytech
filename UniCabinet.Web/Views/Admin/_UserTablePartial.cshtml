@@ -1,0 +1,52 @@
+﻿@model UniCabinet.Web.ViewModel.User.StudentGroupViewModel
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Полное Имя</th>
+                <th>Роли</th>
+                <th>Текущая Группа</th>
+                <th>Изменить Группу</th>
+                <th>Изменить Роль</th>
+                <th>Информация</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+            @foreach (var user in Model.Users)
+            {
+                <tr data-user-id="@user.Id" class="user-row">
+                    <td>@user.Email</td>
+                    <td>@user.FirstName @user.LastName @user.Patronymic</td>
+                    <td>@string.Join(", ", user.Roles)</td>
+                    <td>@user.GroupName</td>
+                    <td>
+                        @if (user.Roles.Contains("Student") && user.Roles.Contains("Verified"))
+                        {
+                            <button type="button" class="btn btn-primary btn-sm" data-url="@Url.Action("GroupEditModal", "Admin", new { userId = user.Id })">
+                                Изменить группу
+                            </button>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Изменение группы недоступно</span>
+                        }
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" data-url="@Url.Action("RoleEditModal", "Admin", new { userId = user.Id })">
+                            Изменить роль
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-sm" data-url="@Url.Action("UserDetailModal", "Admin", new { userId = user.Id })">
+                            Подробнее
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@await Html.PartialAsync("_Pagination", Model.Pagination)

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<UniCabinet.Web.ViewModel.Discipline.DisciplineViewModel>
+
+<button type="button" class="btn btn-primary" data-url="@Url.Action("DisciplineAddModal", "Discipline")">
+    Добавить дисциплину
+</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Описание</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>
+                    <button type="button" class="btn btn-secondary" data-url="@Url.Action("DisciplineEditModal", "Discipline", new { id = item.Id })">
+                        Редактировать
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/js/ajax-modal.js"></script>
+}
+
+
+<div id="modalContainer"></div>
